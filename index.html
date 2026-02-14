@@ -16,7 +16,7 @@
 
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF6B6B 100%);
+            background: linear-gradient(135deg, #EB3935 0%, #F76B5B 30%, #FF9B64 70%, #E87B5C 100%);
             min-height: 100vh;
             padding: 10px;
             display: flex;
@@ -35,8 +35,8 @@
             right: 0;
             bottom: 0;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(255, 155, 100, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(247, 107, 91, 0.12) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -70,29 +70,29 @@
             font-family: 'Noto Sans SC', sans-serif;
             font-size: 28px;
             font-weight: 900;
-            color: #FFD700;
+            color: #FFFFFF;
             text-shadow: 
-                2px 2px 0 #8B0000,
-                4px 4px 8px rgba(0, 0, 0, 0.3);
+                2px 2px 0 #EB3935,
+                4px 4px 8px rgba(235, 57, 53, 0.4);
             letter-spacing: 3px;
             margin-bottom: 5px;
         }
 
         .subtitle {
             font-size: 13px;
-            color: #FFF8DC;
+            color: #FFFFFF;
             opacity: 0.95;
         }
 
         /* 计算器主体 */
         .calculator {
-            background: linear-gradient(145deg, #FFFACD 0%, #FFF8DC 100%);
+            background: linear-gradient(145deg, #FFFFFF 0%, #FFE8E5 100%);
             border-radius: 20px;
             padding: 15px;
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            border: 3px solid #DAA520;
+                0 20px 60px rgba(235, 57, 53, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 3px solid #F76B5B;
             animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
@@ -164,12 +164,12 @@
         }
 
         .result-title {
-            color: #FFD700;
+            color: #FF9B64;
             font-size: 28px;
             font-weight: 900;
             margin-bottom: 5px;
             text-shadow: 
-                0 0 15px rgba(255, 215, 0, 0.6),
+                0 0 15px rgba(255, 155, 100, 0.6),
                 0 2px 4px rgba(0, 0, 0, 0.4);
             animation: glow 2s ease-in-out infinite;
             letter-spacing: 2px;
@@ -177,8 +177,8 @@
         }
 
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4); }
-            50% { text-shadow: 0 0 25px rgba(255, 215, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.5); }
+            0%, 100% { text-shadow: 0 0 15px rgba(255, 155, 100, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4); }
+            50% { text-shadow: 0 0 25px rgba(255, 155, 100, 0.9), 0 2px 8px rgba(0, 0, 0, 0.5); }
         }
 
         .result-desc {
@@ -196,7 +196,7 @@
         }
 
         .btn {
-            background: linear-gradient(145deg, #DC143C, #B22222);
+            background: linear-gradient(145deg, #F76B5B, #EB3935);
             color: #FFF;
             border: none;
             border-radius: 10px;
@@ -207,8 +207,8 @@
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             box-shadow: 
-                0 3px 0 #8B0000,
-                0 6px 12px rgba(0, 0, 0, 0.3);
+                0 3px 0 #D93531,
+                0 6px 12px rgba(235, 57, 53, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -231,12 +231,25 @@
         .btn:active {
             transform: translateY(3px);
             box-shadow: 
-                0 0px 0 #8B0000,
-                0 3px 6px rgba(0, 0, 0, 0.3);
+                0 0px 0 #D93531,
+                0 3px 6px rgba(235, 57, 53, 0.3);
         }
 
         .btn.relation {
-            background: linear-gradient(145deg, #FF6347, #DC143C);
+            background: linear-gradient(145deg, #F76B5B, #EB3935);
+        }
+
+        /* 使用不同颜色为不同类型的按钮 */
+        .btn:nth-child(3n+1) {
+            background: linear-gradient(145deg, #EB3935, #D93531);
+        }
+
+        .btn:nth-child(3n+2) {
+            background: linear-gradient(145deg, #F76B5B, #EB3935);
+        }
+
+        .btn:nth-child(3n) {
+            background: linear-gradient(145deg, #FF9B64, #F76B5B);
         }
 
         /* 性别选择开关 */
@@ -247,8 +260,9 @@
             gap: 10px;
             margin-bottom: 12px;
             padding: 6px 12px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.4);
             border-radius: 10px;
+            border: 1px solid rgba(247, 107, 91, 0.3);
         }
 
         .gender-group {
@@ -258,17 +272,17 @@
         }
 
         .gender-label {
-            color: #2C3E50;
+            color: #EB3935;
             font-size: 11px;
             font-weight: 700;
         }
 
         .gender-toggle {
             display: flex;
-            background: #34495E;
+            background: rgba(235, 57, 53, 0.15);
             border-radius: 15px;
             padding: 2px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 2px 4px rgba(235, 57, 53, 0.1);
         }
 
         .gender-btn {
@@ -281,7 +295,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: transparent;
-            color: #BDC3C7;
+            color: #999;
         }
 
         .gender-btn.active {
@@ -295,7 +309,7 @@
         }
 
         .gender-btn:last-child.active {
-            background: linear-gradient(145deg, #E74C3C, #C0392B);
+            background: linear-gradient(145deg, #F76B5B, #EB3935);
         }
 
         /* 小型控制按钮 */
@@ -305,7 +319,7 @@
         }
 
         .btn-small {
-            background: linear-gradient(145deg, #E67E22, #D35400);
+            background: linear-gradient(145deg, #FF9B64, #F76B5B);
             color: #FFF;
             border: none;
             border-radius: 10px;
@@ -316,34 +330,34 @@
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             box-shadow: 
-                0 3px 0 #A04000,
-                0 5px 10px rgba(0, 0, 0, 0.3);
+                0 3px 0 #E87B5C,
+                0 5px 10px rgba(232, 123, 92, 0.3);
         }
 
         .btn-small:active {
             transform: translateY(3px);
             box-shadow: 
-                0 0px 0 #A04000,
-                0 2px 5px rgba(0, 0, 0, 0.3);
+                0 0px 0 #E87B5C,
+                0 2px 5px rgba(232, 123, 92, 0.3);
         }
 
         .btn-small.backspace {
-            background: linear-gradient(145deg, #F39C12, #E67E22);
-            box-shadow: 0 3px 0 #C87D0A, 0 5px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, #E87B5C, #F76B5B);
+            box-shadow: 0 3px 0 #D96B4C, 0 5px 10px rgba(232, 123, 92, 0.3);
         }
 
         /* 提示信息 */
         .tips {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
             padding: 12px;
             margin-top: 12px;
-            border: 2px solid #DAA520;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid #F76B5B;
+            box-shadow: 0 4px 15px rgba(247, 107, 91, 0.2);
         }
 
         .tips-title {
-            color: #DC143C;
+            color: #EB3935;
             font-weight: 700;
             font-size: 13px;
             margin-bottom: 6px;
@@ -363,11 +377,11 @@
         }
 
         .example {
-            background: #FFF8DC;
+            background: #FFE8E5;
             padding: 6px 10px;
             border-radius: 6px;
             margin-top: 6px;
-            border-left: 3px solid #DC143C;
+            border-left: 3px solid #F76B5B;
             font-size: 11px;
         }
 
@@ -404,9 +418,9 @@
             text-align: center;
             margin-top: 10px;
             font-family: 'Ma Shan Zheng', cursive;
-            color: #FFD700;
+            color: #FFFFFF;
             font-size: 14px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 2px rgba(235, 57, 53, 0.3);
             opacity: 0.9;
         }
     </style>
