@@ -110,48 +110,69 @@
         .display {
             background: linear-gradient(to bottom, #2C3E50 0%, #1a252f 100%);
             border-radius: 12px;
-            padding: 12px 15px;
+            padding: 12px;
             margin-bottom: 12px;
             min-height: 100px;
-            max-height: 100px;
-            overflow: hidden;
+            display: flex;
+            gap: 10px;
             box-shadow: 
                 inset 0 4px 8px rgba(0, 0, 0, 0.5),
                 0 2px 0 rgba(255, 255, 255, 0.1);
             border: 2px solid #34495E;
         }
 
+        .display-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #34495E;
+            padding-right: 10px;
+        }
+
+        .display-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 10px;
+        }
+
         .input-chain {
             color: #5DADE2;
-            font-size: 12px;
+            font-size: 11px;
             line-height: 1.4;
-            min-height: 28px;
-            margin-bottom: 10px;
             font-family: 'Noto Serif SC', serif;
             word-break: break-all;
             opacity: 0.85;
+            flex: 1;
+            display: flex;
+            align-items: center;
         }
 
         .input-chain.empty {
             color: #7F8C8D;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .result {
-            padding-top: 10px;
-            border-top: 1px solid #34495E;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .result-title {
             color: #FFD700;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 900;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             text-shadow: 
                 0 0 15px rgba(255, 215, 0, 0.6),
                 0 2px 4px rgba(0, 0, 0, 0.4);
             animation: glow 2s ease-in-out infinite;
             letter-spacing: 2px;
+            line-height: 1.2;
         }
 
         @keyframes glow {
@@ -161,8 +182,8 @@
 
         .result-desc {
             color: #BDC3C7;
-            font-size: 11px;
-            line-height: 1.4;
+            font-size: 10px;
+            line-height: 1.3;
         }
 
         /* 按钮网格 */
@@ -217,41 +238,97 @@
             background: linear-gradient(145deg, #FF6347, #DC143C);
         }
 
-        /* 特殊按钮 */
-        .control-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
+        /* 性别选择开关 */
+        .gender-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
         }
 
-        .btn-clear {
+        .gender-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .gender-label {
+            color: #2C3E50;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .gender-toggle {
+            display: flex;
+            background: #34495E;
+            border-radius: 15px;
+            padding: 2px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .gender-btn {
+            padding: 4px 14px;
+            border: none;
+            border-radius: 13px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #BDC3C7;
+        }
+
+        .gender-btn.active {
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+            color: #FFF;
+            box-shadow: 0 2px 6px rgba(52, 152, 219, 0.4);
+        }
+
+        .gender-btn:first-child.active {
+            background: linear-gradient(145deg, #3498DB, #2980B9);
+        }
+
+        .gender-btn:last-child.active {
+            background: linear-gradient(145deg, #E74C3C, #C0392B);
+        }
+
+        /* 小型控制按钮 */
+        .control-buttons-small {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
             background: linear-gradient(145deg, #E67E22, #D35400);
-            box-shadow: 0 3px 0 #A04000, 0 6px 12px rgba(0, 0, 0, 0.3);
+            color: #FFF;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 
+                0 3px 0 #A04000,
+                0 5px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .btn-backspace {
+        .btn-small:active {
+            transform: translateY(3px);
+            box-shadow: 
+                0 0px 0 #A04000,
+                0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-small.backspace {
             background: linear-gradient(145deg, #F39C12, #E67E22);
-            box-shadow: 0 3px 0 #C87D0A, 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 年龄判断按钮 */
-        .age-toggle {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .btn-age {
-            background: linear-gradient(145deg, #27AE60, #229954);
-            box-shadow: 0 3px 0 #1E8449, 0 6px 12px rgba(0, 0, 0, 0.3);
-            padding: 12px;
-        }
-
-        .btn-age.active {
-            background: linear-gradient(145deg, #FFD700, #FFA500);
-            box-shadow: 0 3px 0 #CC8400, 0 6px 12px rgba(255, 215, 0, 0.4);
-            transform: translateY(2px);
+            box-shadow: 0 3px 0 #C87D0A, 0 5px 10px rgba(0, 0, 0, 0.3);
         }
 
         /* 提示信息 */
@@ -311,11 +388,14 @@
             text-align: center;
             color: #3498DB;
             font-size: 12px;
-            padding: 8px;
+            padding: 0;
         }
 
         .loading.show {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
         }
 
         /* 新年祝福装饰 */
@@ -340,12 +420,34 @@
         <div class="calculator">
             <!-- 显示屏 -->
             <div class="display">
-                <div class="input-chain empty" id="inputChain">请点击下方按钮开始</div>
-                <div class="result" id="result" style="display: none;">
-                    <div class="result-title" id="resultTitle"></div>
-                    <div class="result-desc" id="resultDesc"></div>
+                <!-- 左侧:关系链 -->
+                <div class="display-left">
+                    <div class="input-chain empty" id="inputChain">请点击下方按钮开始</div>
                 </div>
-                <div class="loading" id="loading">计算中...</div>
+                
+                <!-- 右侧:称谓结果 -->
+                <div class="display-right">
+                    <div class="result" id="result" style="display: none;">
+                        <div class="result-title" id="resultTitle"></div>
+                        <div class="result-desc" id="resultDesc"></div>
+                    </div>
+                    <div class="loading" id="loading">计算中...</div>
+                </div>
+            </div>
+
+            <!-- 性别选择 + 控制按钮 -->
+            <div class="gender-switch">
+                <div class="gender-group">
+                    <span class="gender-label">我是:</span>
+                    <div class="gender-toggle">
+                        <button class="gender-btn active" id="btnMale" onclick="selectGender('male')">男 ♂</button>
+                        <button class="gender-btn" id="btnFemale" onclick="selectGender('female')">女 ♀</button>
+                    </div>
+                </div>
+                <div class="control-buttons-small">
+                    <button class="btn-small" onclick="clearAll()">清空 ✕</button>
+                    <button class="btn-small backspace" onclick="backspace()">退格 ⌫</button>
+                </div>
             </div>
 
             <!-- 关系按钮 -->
@@ -366,26 +468,14 @@
                 <button class="btn relation" onclick="addRelation('xb', '兄弟')">兄弟</button>
                 <button class="btn relation" onclick="addRelation('xs', '姐妹')">姐妹</button>
             </div>
-
-            <!-- 控制按钮 -->
-            <div class="control-buttons">
-                <button class="btn btn-clear" onclick="clearAll()">清空 ✕</button>
-                <button class="btn btn-backspace" onclick="backspace()">退格 ⌫</button>
-            </div>
-
-            <!-- 年龄判断 -->
-            <div class="age-toggle">
-                <button class="btn btn-age" id="btnOlder" onclick="toggleAge('older')">比我大</button>
-                <button class="btn btn-age" id="btnYounger" onclick="toggleAge('younger')">比我小</button>
-            </div>
         </div>
 
         <!-- 使用提示 -->
         <div class="tips">
             <div class="tips-title">💡 使用说明</div>
             <div class="tips-content">
-                <p><strong>1.</strong> 依次点击按钮描述关系,如:"爸爸" → "哥哥" = 伯伯</p>
-                <p><strong>2.</strong> 对于同辈关系,点击"比我大/小"来区分哥哥弟弟</p>
+                <p><strong>1.</strong> 先选择"我是"男或女</p>
+                <p><strong>2.</strong> 依次点击按钮描述关系,如:"爸爸" → "哥哥" = 伯伯</p>
                 <p><strong>3.</strong> 点击"退格"可以撤销上一步,"清空"重新开始</p>
                 <div class="example">
                     <strong>示例:</strong> 妈妈 → 妈妈 → 哥哥 = 舅姥爷
@@ -404,7 +494,7 @@
     <script>
         let relationChain = [];
         let displayChain = [];
-        let ageMode = null; // 'older' or 'younger'
+        let userGender = 'male'; // 默认男性
 
         // 添加关系
         function addRelation(code, name) {
@@ -426,6 +516,27 @@
             }
             console.log('当前关系链:', relationChain.join(','));
             console.log('显示文本:', displayChain.join(' 的 '));
+            console.log('用户性别:', userGender);
+        }
+
+        // 性别选择
+        function selectGender(gender) {
+            userGender = gender;
+            const maleBtn = document.getElementById('btnMale');
+            const femaleBtn = document.getElementById('btnFemale');
+            
+            if (gender === 'male') {
+                maleBtn.classList.add('active');
+                femaleBtn.classList.remove('active');
+            } else {
+                femaleBtn.classList.add('active');
+                maleBtn.classList.remove('active');
+            }
+            
+            // 如果已有关系链,重新计算
+            if (relationChain.length > 0) {
+                calculateRelation();
+            }
         }
 
         // 计算关系
@@ -730,9 +841,6 @@
         function clearAll() {
             relationChain = [];
             displayChain = [];
-            ageMode = null;
-            document.getElementById('btnOlder').classList.remove('active');
-            document.getElementById('btnYounger').classList.remove('active');
             updateDisplay();
             document.getElementById('result').style.display = 'none';
         }
@@ -748,33 +856,6 @@
                 } else {
                     calculateRelation();
                 }
-            }
-        }
-
-        // 年龄切换
-        function toggleAge(mode) {
-            const olderBtn = document.getElementById('btnOlder');
-            const youngerBtn = document.getElementById('btnYounger');
-            
-            if (ageMode === mode) {
-                // 取消选择
-                ageMode = null;
-                olderBtn.classList.remove('active');
-                youngerBtn.classList.remove('active');
-            } else {
-                ageMode = mode;
-                if (mode === 'older') {
-                    olderBtn.classList.add('active');
-                    youngerBtn.classList.remove('active');
-                } else {
-                    youngerBtn.classList.add('active');
-                    olderBtn.classList.remove('active');
-                }
-            }
-            
-            // 重新计算
-            if (relationChain.length > 0) {
-                calculateRelation();
             }
         }
 
