@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>亲戚称谓计算器 - 布局修正版</title>
+    <title>亲戚称谓计算器 </title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Ma+Shan+Zheng&display=swap');
 
@@ -25,12 +25,10 @@
 
         .container { max-width: 420px; width: 100%; z-index: 1; }
 
-        /* 顶部标题区 */
         .header { text-align: center; margin-bottom: 20px; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .header h1 { font-size: 27px; font-weight: 900; letter-spacing: 2px; margin-bottom: 4px; }
         .header p { font-size: 18px; font-weight: 500; opacity: 0.9; }
 
-        /* 显示屏部分 */
         .path-display {
             background: rgba(0, 0, 0, 0.85);
             border-radius: 16px 16px 4px 4px;
@@ -50,7 +48,6 @@
         .result-main { font-family: 'Ma Shan Zheng', cursive; font-size: 46px; color: #FF9B64; }
         .result-sub { color: #BDC3C7; font-size: 13px; }
 
-        /* 计算器主体 */
         .calc-body {
             background: rgba(255, 255, 255, 0.95); border-radius: 24px;
             padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
@@ -61,12 +58,7 @@
         .tgl-btn.active.male { background: var(--male-blue); color: white; }
         .tgl-btn.active.female { background: var(--female-pink); color: white; }
 
-        /* 核心按钮布局 */
-        .button-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 12px; 
-        }
+        .button-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         
         .btn {
             aspect-ratio: 1.8 / 1; border: none; border-radius: 16px;
@@ -80,16 +72,9 @@
         .btn.primary { background: linear-gradient(145deg, #FF9B64, #F76B5B); color: white; box-shadow: 0 4px 0 #E87B5C; }
         .btn.primary:active { transform: translateY(4px); box-shadow: 0 0px 0 #E87B5C; }
 
-        /* 灰色控制键：强制居中对齐逻辑 */
-        .btn.action { 
-            background: #E5E7E9; 
-            color: #4D5656; 
-            font-size: 13px; 
-            box-shadow: 0 4px 0 #BDC3C7;
-        }
+        .btn.action { background: #E5E7E9; color: #4D5656; font-size: 13px; box-shadow: 0 4px 0 #BDC3C7; }
         .btn.action:active { transform: translateY(4px); box-shadow: 0 0px 0 #BDC3C7; }
 
-        /* 使用说明图标 */
         .tips-container { background: white; border-radius: 20px; padding: 18px; margin-top: 15px; }
         .tips-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
         .tips-icon { width: 24px; height: 24px; font-size: 18px; display: flex; align-items: center; justify-content: center; }
@@ -159,17 +144,34 @@
 <script src="https://cdn.jsdelivr.net/npm/relationship.js@latest/dist/relationship.min.js"></script>
 <script>
     let stack = [{ code: '', name: '我' }];
-    let sex = 1;
+    let sex = 1; // 1代表男，0代表女
 
     function setGender(g) {
         sex = (g === 'male' ? 1 : 0);
         document.getElementById('mBtn').classList.toggle('active', g === 'male');
         document.getElementById('fBtn').classList.toggle('active', g === 'female');
-        document.getElementById('spouseBtn').innerText = sex === 1 ? '妻子' : '丈夫';
-        calculate();
+        
+        // 核心修复逻辑：动态修改配偶按钮的显示和触发代码
+        const sBtn = document.getElementById('spouseBtn');
+        if (sex === 1) {
+            sBtn.innerText = '妻子';
+            sBtn.setAttribute('onclick', "addNode('w', '妻子')");
+        } else {
+            sBtn.innerText = '丈夫';
+            sBtn.setAttribute('onclick', "addNode('h', '丈夫')");
+        }
+        
+        // 切换性别时，如果已有路径，重新触发计算
+        if (stack.length > 1) {
+            calculate();
+        }
     }
 
-    function addNode(code, name) { stack.push({ code, name }); render(); }
+    function addNode(code, name) { 
+        stack.push({ code, name }); 
+        render(); 
+    }
+    
     function backspace() { if (stack.length > 1) { stack.pop(); render(); } }
     function clearAll() { stack = [{ code: '', name: '我' }]; render(); }
     function resetToRoot() { clearAll(); }
@@ -184,15 +186,35 @@
     function calculate() {
         const main = document.getElementById('resultMain');
         const sub = document.getElementById('resultSub');
-        if (stack.length <= 1) { main.innerText = "过年好"; sub.innerText = "点击下方开始计算"; return; }
-        const query = stack.slice(1).map(s => s.name).join('的');
+        if (stack.length <= 1) { 
+            main.innerText = "过年好"; 
+            sub.innerText = "点击下方开始计算"; 
+            return; 
+        }
+
+        // 使用 relationship.js 核心计算逻辑
+        // 将 stack 转换为库可识别的 code 链
+        const options = {
+            text: stack.slice(1).map(s => s.name).join('的'),
+            sex: sex,
+            reverse: false
+        };
+
         try {
-            const res = relationship({ text: query, sex: sex });
+            const res = relationship(options);
             if (res && res.length > 0) {
                 main.innerText = res[0];
-                sub.innerText = `你是他的：${relationship({ text: query, sex: sex, reverse: true })[0] || '未知'}`;
-            } else { main.innerText = "关系较远"; sub.innerText = "大概是远房亲戚吧"; }
-        } catch (e) { main.innerText = "计算中"; }
+                // 计算反向称呼作为辅助信息
+                const revOptions = { ...options, reverse: true };
+                sub.innerText = `你是他的：${relationship(revOptions)[0] || '未知'}`;
+            } else { 
+                main.innerText = "关系较远"; 
+                sub.innerText = "大概是远房亲戚吧"; 
+            }
+        } catch (e) { 
+            main.innerText = "数据错误";
+            sub.innerText = "请检查关系链是否逻辑通顺";
+        }
     }
 </script>
 </body>
